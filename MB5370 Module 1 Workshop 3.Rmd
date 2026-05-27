@@ -1,0 +1,39 @@
+---
+title: "MB5370 Module 1 Workshop Three"
+author: "Caitlin Buckle"
+date: "2026-05-26"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r Load necessary packages, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(ggplot2)
+```
+
+### Section 
+```{r message=FALSE, warning=FALSE}
+
+```
+
+### How to Source Code from R Script in Rmd (without having to copy and paste)
+To source the code in our workshop script we can use the source() function in R. This will execute the code in the specified file and make any functions or variables defined in that file available in our current R session. 
+#### EXAMPLE CODE: source ("../code/Module_1.R")
+the "../" will instruct R to go 'up' one folder (or out of one folder) and into the next required folder "/code/" in this example. 
+#### NOTE: the source() function will not work unless the code in your script has no issues or errors. If the R-script file is complete, the source should run. 
+```{r message=FALSE, warning=FALSE}
+source("Module_1.R") #The R-script file is in the same folder on my computer as the R project file, therefore I do not need to specify having to exit a folder and into another one (therefore don't need to include "../" in my code). 
+print(plot) # in R-script, the ggplot will appear in the plot window automatically, but if you don't have it specified for R to print the plot, you will not see anything when you source the plot from your R-script in Rmd. 
+```
+
+### Section 3.4: Setting Up Git and Github 
+Git was downloaded via Mac Ports (using older version as laptop is not updated yet)
+Used command " sudo port install git " into Mac terminal to install 
+Created a token, selected no expiry so won't have to repeat these steps during the course 
+```{r}
+
+```
+

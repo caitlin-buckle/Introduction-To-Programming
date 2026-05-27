@@ -1,0 +1,260 @@
+---
+title: "MB5370 Workshop Two: Visualisation"
+author: "Caitlin Buckle"
+date: "2026-05-20"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r Load necessary packages, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(ggplot2)
+```
+
+### Section 2.16: Load the dataset and examine to see what the dataset looks like
+```{r message=FALSE, warning=FALSE, results='hide'}
+mpg #built-in dataset in ggplot2, used to teach you the foundations of ggplot package without having to worry about complex datasets etc. 
+?mpg #will tell you more about the dataset, including the expanded column names
+```
+
+### Section 2.17: Create your first ggplot
+ggplot() creates a coordinate system that you can add layers to. The first argument is the dataset, indicated by (data=),then geom_point(), which adds a layer of points to your plot to create a scatterplot (ggplot2 comes with many geom functions to       add different layers to your plot. Each geom function takes a mapping argument, which defines how variables in your dataset are mapped to visual properties. The mapping argument is always paired with aes(), and the x and y arguments within aes() specify which variables to map on the x and y axis 
+```{r  }
+ggplot(data=mpg)+geom_point(mapping=aes(x=displ,y=hwy))
+```
+
+### Section 2.18: Understand the grammar of graphics
+#Template : ggplot(data=<DATA>)+<GEOM_FUNCTION>(mapping=aes(<MAPPINGS>))
+
+aes() is the visual property of the objects you've already plotted and inclues things like size, shape, colour etc. 
+
+#### EXAMPLE
+
+```{r message=TRUE, warning=FALSE}
+ggplot(data=mpg)+geom_point(mapping=aes(x=displ,y=hwy,colour=class)) #will colour the points based on class 
+ggplot(data=mpg)+geom_point(mapping=aes(x=displ,y=hwy,size=class)) #will display class differences as different sized dots 
+```
+
+Need to be careful where the '+' is placed when using ggplot, needs to be placed on the top line of code, should not be placed at the start of a new line 
+
+### Section 2.20: Facet and Panel Plots
+In ggplot, can use facets to separate plots into subplots/panels 
+
+To facet plots using a single variable, use facet_wrap() (only with discrete variables. facet_wrap() syntax is in the function of a formula, where the ~ dictates which variable you want to subset your data with 
+
+```{r}
+ggplot(data=mpg)+
+  geom_point(mapping=aes(x=displ,y=hwy))+
+  facet_wrap(~class,nrow=2) #subsetting data by class, will create a separate panel for each class 
+```
+
+If you want to do this for more than variable, use facet_grid(), using two variables with '~' to split them up 
+```{r}
+ggplot(data=mpg)+
+  geom_point(mapping=aes(x=displ,y=hwy))+
+  facet_grid(drv~cyl) #will facet data by drive type (drv) and number of cylinders (cyl)
+```
+
+Use a '.' if you do not want to facet in the rows or column dimension 
+```{r}
+ggplot(data=mpg)+
+  geom_point(mapping=aes(x=displ,y=hwy))+
+  facet_grid(.~cyl) #ggplot faceted by # of cylinder
+```
+
+#### QUESTIONS (answer using ?facet_wrap) 
+
+What does nrow do? number of rows in the plot 
+
+What does ncol do? number of columns in the plot 
+
+What other options control the layout of the individual panels? shrink (shrink scales to fit output stats), as.table (facets laid out like table with highest values in bottom-right) 
+
+### Section 2.21: Fitting simple lines
+#To plot points at the coordinate location on the x and y axes, use geom_point() 
+
+To display the same data as a smooth line fit through the points, use geom_smooth()
+```{r message=FALSE, warning=FALSE}
+ggplot(data=mpg)+
+  geom_smooth(mapping=aes(x=displ,y=hwy))
+```
+
+Can also change the line type and use a variable in the dataset to control it 
+```{r message=FALSE, warning=FALSE}
+ggplot(data=mpg)+
+  geom_point(mapping=aes(x=displ,y=hwy))+
+  geom_smooth(mapping=aes(x=displ,y=hwy,linetype=drv)) #separates the cars into three lines based on the drive type (drv), and have two different geom functions on the same plot (geom_point() and geom_smooth())
+```
+
+Can add the group argument to our gpplot to vary plots by discrete variables 
+```{r message=FALSE, warning=FALSE}
+ggplot(data=mpg)+
+  geom_smooth(mapping=aes(x=displ,y=hwy,group=drv,color=drv),
+              show.legend=TRUE) #groups by drive type (drv), and are also colored by drive type 
+```
+
+#### EXAMPLE: Plotting multiple geoms on a single plot 
+```{r message=FALSE, warning=FALSE}
+ggplot(data=mpg)+
+  geom_point(mapping=aes(x=displ,y=hwy))+
+  geom_smooth(mapping =aes(x=displ,y=hwy)) #plots both the points and a smooth line on the same graph 
+#the code above has the x and y variables separated and indicated in each geom_function, which is not ideal if you are wanting to change a variable as you will have to change it in multiple locations - to avoid this, you can specify the x and y variable in the ggplot() argument, which will apply these variables to each geom_function in the plot 
+ggplot(data=mpg,mapping=aes(x=displ,y=hwy))+
+  geom_point()+
+  geom_smooth() #generates the same plot as above, but the variables are defined in the ggplot() argument, not in the geom_function()
+```
+
+You can use mapping in specific layers to enable the display the different aesthetics in different layers 
+```{r message=FALSE, warning=FALSE}
+ggplot(data=mpg,mapping=aes(x=displ,y=hwy))+
+  geom_point(mapping=aes(color=class))+
+  geom_smooth() #differentiates class by coloured points 
+```
+
+Can also be used if you want to specify different data for each layer - example below uses a filter (class="subcompact") to select a subset of the data and plot only that subset 
+```{r message=FALSE, warning=FALSE}
+ggplot(data=mpg,mapping=aes(x=displ,y=hwy))+
+  geom_point(mapping=aes(color=class))+
+  geom_smooth(data=filter(mpg,class=="subcompact",se=TRUE)) #plot shows points by colour, and the smooth line has been filtered by cars in the "subcompact" class 
+```
+
+#### EXERCISE
+
+
+##### QUESTION ONE: 
+
+What geom would you use to draw a ... 
+
+  Line chart? geom_line()
+  
+  Boxplot? geom_boxplot()
+  
+  Histogram? geom_histogram()
+  
+  Area chart? geom_area()
+  
+##### QUESTION TWO: 
+Run this code in your head first and visualise what the output will look like. Will the two graphs look different? Why or why not? 
+
+PREDICTION: These two graphs will look the same as they are both plotting the same things with the same geom_functions. The only difference is the first code has specified the x and y variables in ggplot argument, whereas the second code has specificed x and y for each geom_function. 
+```{r message=FALSE, warning=FALSE}
+ggplot(data=mpg,mapping=aes(x=displ,y=hwy))+
+  geom_point()+
+  geom_smooth() #variables are specified in ggplot() argument
+ggplot(data=mpg)+
+  geom_point(mapping=aes(x=displ,y=hwy))+
+  geom_smooth(mapping =aes(x=displ,y=hwy)) #variables are specified for each geom_function()
+```
+
+### Section 2.22.1: Plotting Statistics
+```{r }
+#using the 'diamonds' dataset embedded in ggplot2 
+ggplot(data=diamonds)+
+  geom_bar(mapping=aes(x=cut)) #shows more diamonds are available with high quality cuts than low quality cuts, geom_bar has placed data into 'bins' and then plotted the counts within each bin on the x-axis (same as histograms and frequency polygons)
+    #smoothers fit a model to your data and then plot predictions from the model 
+    #boxplots compute a robust summary of the distribution and then display a specially formatted box 
+```
+
+The algorithm used to calculate new values for a graph is called a stat (short for statistical transformation)
+
+You can generally use geoms and stats interchangeably 
+
+#### EXAMPLE
+```{r message=FALSE, warning=FALSE}
+ggplot(data=diamonds)+
+  stat_count(mapping=aes(x=cut)) #creates same plot as using geom_bar, but uses stat_count instead 
+```
+
+
+### Section 2.22.2: Overriding Defaults in ggplot2 
+You may want to override a default stat, such as from a count/summary to identity (which is the raw value of a variable)
+```{r }
+
+demo <- tribble(
+  ~cut,         ~freq,
+  "Fair",       1610,
+  "Good",       4906,
+  "Very Good",  12082,
+  "Premium",    13791,
+  "Ideal",      21551
+)
+demo
+ggplot(data=demo)+
+  geom_bar(mapping=aes(x=cut,y=freq),stat="identity")
+```
+
+You can also override a default mapping from transformed variables to aesthetics. 
+
+#### EXAMPLE BELOW
+
+You could display a bar chart of the proportion of your total diamond dataset rather than count 
+```{r}
+ggplot(data=diamonds)+
+  geom_bar(mapping=aes(x=cut,y=after_stat(prop),group=1)) #x-axis is a proportion of total data set, not a count 
+```
+
+### Section 2.22.3: Plotting statistical details 
+It is good practice to be transparent about transformation in your plot and any uncertainties or limitations of your data, can do this using stat_summary()
+```{r Section 2.22.3}
+ggplot(data=diamonds)+
+  stat_summary(
+    mapping=aes(x=cut,y=depth),
+    fun.min=min, 
+    fun.max=max,
+    fun=median
+  )
+```
+
+### Section 2.23: Aesthetic Adjustments 
+Can use aesthetics to colour or fill to change aspects of the bar colours
+```{r Section 2.23: Aesthetic Adjustments }
+ggplot(data=diamonds)+
+  geom_bar(mapping=aes(x=cut,colour=cut)) #outlines the different bars (binned by cut) in different colors 
+ggplot(data=diamonds)+
+  geom_bar(mapping=aes(x=cut,fill=cut)) #fills the different bars (binned by cut)
+ggplot(data=diamonds)+
+  geom_bar(mapping=aes(x=cut,fill=clarity)) #colored based on clarity (another variable in the data set), done behind the scenes using a position argument 
+
+```
+
+Position adjustments allow you to customise your plot in three ways; identity (raw data), fill (change heights), and dodge (forces ggplot2 to not put things on top of each other)
+
+If using position = "identity", you can place each object exactly where it falls in the context of the graph. This is vital for points charts (e.g., scatter plots), but messy for others (e.g., bar plots). 
+
+Can alter the bar aesthetic
+```{r}
+ggplot(data=diamonds,mapping=aes(x=cut,fill=clarity))+
+  geom_bar(alpha=1/5,position="identity") #the alpha = 1/5 changes the transparency (1/5 = 20% opacity)
+ggplot(data=diamonds,mapping=aes(x=cut,colour=clarity))+
+  geom_bar(fill=NA,position="identity") #outlines the bars without filling with color 
+```
+
+Position = "fill" works like stacking, but makes each set of stacked bars the same height
+```{r}
+ggplot(data=diamonds,mapping=aes(x=cut,fill=clarity))+
+  geom_bar(position="fill")
+```
+
+Position = "dodge" places overlapping objects directly beside one another 
+```{r}
+ggplot(data=diamonds)+
+  geom_bar(mapping=aes(x=cut,fill=clarity),position="dodge") #each cut type now has a separate bar for each clarity type (not stacked on top of each other anymore)
+```
+
+Position = "jitter" slightly moves points (by adding a small amount of random. noise to each point) to avoid overplotting when points overlap. This is useful for scatterplots, but not barplots 
+```{r}
+ggplot(data=mpg)+
+  geom_point(mapping=aes(x=displ,y=hwy),position="jitter") 
+```
+
+### Section 2.24: Layered Grammar of Graphics 
+
+Updated template for ggplot below: 
+ggplot(data=DATA) + GEOM_FUNCTION(mapping = aes(MAPPINGS),stat = STAT, position = POSITION) +FACET_FUNCTION
+
+## ALL FORMATTING CORRECT WHEN KNITTED :) 
+        
+
