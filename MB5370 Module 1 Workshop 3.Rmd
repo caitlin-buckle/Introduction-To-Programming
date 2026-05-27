@@ -33,7 +33,27 @@ print(plot) # in R-script, the ggplot will appear in the plot window automatical
 Git was downloaded via Mac Ports (using older version as laptop is not updated yet)
 Used command " sudo port install git " into Mac terminal to install 
 Created a token, selected no expiry so won't have to repeat these steps during the course 
-```{r}
+Followed the instructions in the workshop manual to install and get Git communicating with Github 
+Created a new project with the class repo for Module_1 
 
-```
+#### NOTE: important to consider how you structure your files in finder, can follow the structure outlined in the manual as an example 
+#### EXAMPLE :
+MB5370-Programming/ <- main folder with everything inside 
+│
+├── MB5370-Programming.Rproj
+├── data/       <- For raw, unedited data files (CSVs, shapes, etc.)
+├── code/       <- For dirty/heavy data manipulation code
+├── output/     <- For processed tables, figures, and saved objects
+└── docs/       <- For your rendered write-ups and final documents
+
+### Section 3.6: Track Your Own Project 
+Three main options for tracking your own project and pushing it to Github (all within RStudio and all within the specific project)
+#### Option One: call 'usethis::use_git()' in the R console 
+#### Option Two: 
+Using tools. In RStudio, go to Tools > Project Options... > Git/SVN. Under 'version control system', select 'Git'. Confirm New Git Repository > Yes 
+#### Options Three: Using the terminal 
+Click on the terminal pane at the bottom. With working directory set to the projects directory, run git init. 
+
+Used 'usethis' option 
+
 
