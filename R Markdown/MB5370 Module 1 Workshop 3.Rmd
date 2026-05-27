@@ -56,4 +56,7 @@ Click on the terminal pane at the bottom. With working directory set to the proj
 
 Used 'usethis' option 
 
+#### NOTE: On Macs, it you cannot see the .gitignore folders, do command + shift + . and it will show all hidden/private folders in Finder 
+
+
 
