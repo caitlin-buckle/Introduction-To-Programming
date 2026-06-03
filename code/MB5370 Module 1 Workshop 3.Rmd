@@ -1,0 +1,104 @@
+---
+title: "MB5370 Module 1 Workshop Three"
+author: "Caitlin Buckle"
+date: "2026-05-26"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r Load necessary packages, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(ggplot2)
+```
+
+### How to Source Code from R Script in Rmd (without having to copy and paste)
+
+To source the code in our workshop script we can use the source() function in R. This will execute the code in the specified file and make any functions or variables defined in that file available in our current R session. 
+
+#### EXAMPLE CODE: source ("../code/Module_1.R")
+
+the "../" will instruct R to go 'up' one folder (or out of one folder) and into the next required folder "/code/" in this example. 
+
+#### NOTE: the source() function will not work unless the code in your script has no issues or errors. If the R-script file is complete, the source should run. 
+
+```{r message=FALSE, warning=FALSE}
+source("Module_1.R") #The R-script file is in the same folder on my computer as the R project file, therefore I do not need to specify having to exit a folder and into another one (therefore don't need to include "../" in my code). 
+print(plot) # in R-script, the ggplot will appear in the plot window automatically, but if you don't have it specified for R to print the plot, you will not see anything when you source the plot from your R-script in Rmd. 
+```
+
+### Section 3.4: Setting Up Git and Github 
+
+Git was downloaded via Mac Ports (using older version as laptop is not updated yet)
+
+Used command " sudo port install git " into Mac terminal to install 
+
+Created a token, selected no expiry so won't have to repeat these steps during the course 
+
+Followed the instructions in the workshop manual to install and get Git communicating with Github
+
+Created a new project with the class repo for Module_1 
+
+#### NOTE: important to consider how you structure your files in finder, can follow the structure outlined in the manual as an example 
+
+
+#### EXAMPLE :
+
+MB5370-Programming/ <- main folder with everything inside 
+
+MB5370-Programming.Rproj
+
+data/       <- For raw, unedited data files (CSVs, shapes, etc.)
+
+code/       <- For dirty/heavy data manipulation code
+
+output/     <- For processed tables, figures, and saved objects
+
+docs/       <- For your rendered write-ups and final documents
+
+
+### Section 3.6: Track Your Own Project 
+Three main options for tracking your own project and pushing it to Github (all within RStudio and all within the specific project)
+
+#### Option One: 
+Call 'usethis::use_git()' in the R console 
+
+#### Option Two: 
+Using tools. In RStudio, go to Tools > Project Options... > Git/SVN. Under 'version control system', select 'Git'. Confirm New Git Repository > Yes 
+
+#### Options Three: Using the terminal 
+Click on the terminal pane at the bottom. With working directory set to the projects directory, run git init. 
+
+Used 'usethis' option 
+
+#### NOTE: On Macs, it you cannot see the .gitignore folders, do command + shift + . and it will show all hidden/private folders in Finder 
+
+Committed to Github, project is showing on Github profile (called Module_1_Intro)
+
+### Section 3.8: Workflow with Git and GitHub 
+Using version control (Git) changes our workflow a bit.
+E.g., Edit --> Save --> Stage --> Commit --> Pull --> Push --> etc. 
+
+So far, we have conducted all of these tasks expect pulling. We need to pull when we are collaborating with others on a repo and there are changes we need to incorporate onto our own version from the remote. 
+
+Could create a README file on your local version and push it to the remote (how you would normally manage this sort of task), for now can just click on "Add a README" in Github, with a short statement relating to what the repo is all about. README file saved to repo by selecting green "Commit changes" button. 
+
+### Summary of Git/GitHub Terminology 
+Pull = pulling a repository is like syncing your local project from the remote server (GitHub) onto your computer, and combining it with whatever you have on your computer. This is vital to do if someone else has done some work on it, or you're working on the same file from several computers. Make sure you save, stage, and commit your own work first though, or it may get overwritten 
+
+Stage = Git Stage prepares your files to Commit. You can decide which files you want to commit by staging just those files 
+
+Commit = Git Commit is that function that saves this 'version' of your repo into your repositories version history. However, it is only saved locally at this point (not on your remote repository on the GitHub website). Make sure you include a meaningful human-readable Commit message of what you've done to your repo. 
+
+Push = Once you are happy with your work and have Committed to Git locally, Push is the function that sends your changes to your remote server and synchronises with that version. If you want others to see the work you've done, or you want to save it properly as a backup, or access your work from a different computer, then you need to push your repo to GitHub. Remember, you can Commit without Pushing, which can be useful if you want to track files locally before sending to GitHub. 
+
+If you want to see your Commit history, just click on the little clock to see all of your versions and you can go back at any time you like. 
+
+After committing changes on GitHub (to add README file), select Pull on R Project and the README.md file will appear in your project (need to tell Git to obtain information from Github and vice versa). 
+
+### Committing your work to GitHub should be done often, and Git can't track a file without staging and committing it. Remember to follow the workflow of Edit --> Save --> Stage --> Commit --> Pull --> Push. 
+
+
+#### NOTE: You will only see files/folders in your Git pane if it is uncommitted. If there is nothing there, everything has already been committed! 
