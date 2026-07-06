@@ -1,10 +1,10 @@
 ---
-title: "MB5370 Module 1 Workshop One"
+title: "MB5370 Workshop One: Introduction"
 author: "Caitlin Buckle"
 date: "2026-05-19"
 output:
-  word_document: default
   html_document: default
+  word_document: default
   pdf_document: default
 ---
 
@@ -12,125 +12,130 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r}
-#-------------# 
-#MB5370: Visualising Working Directory/File Path 
-#-------------#
-getwd() #see where the file is stored on the computer 
-#~/Module_1/MB5370 Techniques Workshop 1.Rmd ## another method of seeing where the file is stored (right click on markdown file and select 'copy path')
-#-------------#
-#MB5370: Introduction to Programming 
-#Caitlin Buckle 
-#20th May 2026 
-#-------------#
+### NOTES TO MYSELF 
+
+Set-up an R Project and store any/all data/Rmd files within the Project 
+
+Use getwd() to see where the particular file is stored on the computer (shouldn't need to use this if correctly using a R Project)
+
+When reopening an R project, do not directly open the Rmd file (you will be able to edit the file but it will not save as part of the project). Check the right-hand top corner as to which project you are working in : ) 
+
+Don't save your R Project to your desktop ; ). Be clear and organised with where and how you store your data and coding files. 
+
+To get '<-', use keyboard shortcut "opt + -" 
+
+To create new chunk in Rmd file, use keyboard shortcut "command + option + I" 
+
+```{r message=FALSE, warning=FALSE}
+library(tinytex) #load all necessary packages at the start of the file to track which packages have been loaded to avoid trying to reload them
 ```
 
-```{r}
-library(tinytex)
-```
-
-```{r}
-#Shortcuts #### 
-#to get the '<-' function, hold option and 'hypen/-' 
-#to add new code chunk in R Markdown file, command+option+I
-```
-
-```{r}
-#Workshop One: Introduction to R ####
-#--------------# 
-#Can use R as a simple calculator 
+### Introduction to R - Use as a simple calculator 
+```{r,results='hide'}
 2+1 
-3-2
 6*2
-6/2
-#--------------# 
-#Can use R to create vectors 
-1:30 
-#--------------# 
+1:30 #Can use R to create vectors 
 ```
 
-```{r}
-#Section 1.3.8: Variables and Assignments #### 
-#--------------# 
-# Use <- to assign a value to an object 
-age<-25 #example 
+### Section 1.3.8: Variables and Assignments 
+```{r,results='hide'}
+age<-25 #Use <- to assign a value to an object  
 age+1 #uses the value saved as 'age' in future calculations 
-#Remain consistent with your coding language, if naming things with underscores (e.g., age_in_years), don't start using hyphens etc. #--------------# 
-#Exercise ####
+#NOTE: Remain consistent with your coding language, if naming things with underscores (e.g., age_in_years), don't start using hyphens etc.
+```
+
+#### EXERCISE
+```{r,results='hide'}
 calc_1<-15+25.1+20.25 #answer is 60.35, assigned to object 'calc_1'
 calc_2<-26+51.4+11.07 #answer 88.47, assigned to object 'calc_2' 
 calc_1+calc_2 #148.82 
-#--------------# 
 ```
 
-```{r}
-#Section 1.3.9: Functions #### 
-#--------------#
+### Section 1.3.9: Functions
+```{r,results='hide'}
 years_old<-25.765
 round(years_old) #rounds the value up
 floor(years_old) #rounds the value down
-#Each function has arguments, allowing you to be specific about how many decimal places you want to round the number to etc. 
-round(years_old,2) #25.76, comma after object specifies rounding to 2 decimal places
-#--------------# 
-#To discover the options for each function, you can query function arguments using args(x), or a question mark for a shortcut to the R help panel 
-?round #takes you to the R help panel for the 'round' function 
-args(round) #use in the console (not in the script), will give description of the function 
-#--------------# 
-#Excercise ####
-age<-23 
-first_name<-'Caitlin'
-?paste #check the paste function and what is required to perform the function 
-paste(age,first_name,collapse=NULL) #"23 Caitlin" 
-#--------------#
 ```
 
-```{r}
-#Section 1.3.10: Debugging #### 
-#--------------#
-#Misconceptions, variables in programs do not work the same way as they do in spreadsheets 
-#--------------#
-#Example ####
+Each function has arguments, allowing you to be specific about how many decimal places you want to round the number to etc. 
+```{r,results='hide'}
+round(years_old,2) #25.76, comma after object specifies rounding to 2 decimal places
+```
+
+To discover the options for each function, you can query function arguments using args(x), or a question mark for a shortcut to the R help panel 
+```{r,results='hide',message=FALSE, warning=FALSE}
+?round #takes you to the R help panel for the 'round' function 
+args(round) #use in the console (not in the script), will give description of the function 
+```
+
+### Section 1.3.10: Debugging
+Misconceptions, variables in programs do not work the same way as they do in spreadsheets 
+
+#### EXAMPLE
+
+```{r message=FALSE, warning=FALSE,results='hide'}
 grade<-55
 total<-grade+10
 print(total) #65, as grade was assigned as 55 
 grade<-90 
 print(total) #value pf total in a spreadsheet will be 100, but in programming a variable holds the value it was assigned (65 in our example). The program still is seeing total as grade (55) + 10 
 total<-grade+10 #assigning new value for total 
-print(total) #executed in the way it was defined 
-#--------------#
-#Debugging depends on being able to read your code, and is the most effective way of finding errors 
-#Example: What will this code do? #### 
+print(total) #executed in the way it was defined, total = 100 
+``` 
+
+Debugging depends on being able to read your code, and is the most effective way of finding errors 
+
+#### EXAMPLE: What will this code do? 
+```{r,results='hide'}
 p<-2
 z<-5
 out<-p*z #answer should be 10, given the values assigned previously 
 print(out) #print is 10, as expected 
-#out<-p*a #undefined object in 'a', will produce error message, would correct code by assigned a numeric value to 'a', or correcting object to one already defined (e.g., z) 
-#--------------#
-#Developing or using testing function is another method, it is a good idea to write short functions that test your results to makre sure they are what they are supposed to be before running your code 
-#Example 
+```
+
+#### QUESTION:If the code  out<-p*a was in the same chunk as above, what would happen? 
+
+Error message will appear as 'a' is an undefined object. Would either need to be assigned a numeric value (e.g., a<-8) or corrected to an object that has already been defined (e.g., z or p)
+
+Developing or using testing function is another method, it is a good idea to write short functions that test your results to makre sure they are what they are supposed to be before running your code 
+
+#### EXAMPLE 
+```{r,results='hide'}
 x<-1 
 is.character(x) #output is "FALSE", therefore 'x' is not a character
 is.numeric(x) #output is "TRUE", therefore 'x' is numeric 
-#--------------#
-#EXCERCISE: What is wrong with this code? 
-my_quiz<-c("uno","dos","tres","cuatro","cinco")
-#print(my_quis) #quiz is incorrectly spelled "quis", so no object to print 
-str(my_quiz)
-# len(my_quiz) #could not find the function 'len', either incorrectly spelled function (may have meant to type length) or need to download/install a certain package to use this function 
-#--------------#
-``` 
+```
 
-```{r}
-#Section 1.3.11: Data Types 
-#--------------#
-#Every object in R has a type, and there are six basic types; character, numeric, integer, logical, complex, and raw. The most common (character, numeric, integer, and logical) are the ones most important to remember 
-#R has built in functions to help examine objects to better understand their type 
-#class() #what kind of object is it (high-level)?
-#typeof() #what is the objects data type? 
-#length() #how long is it? 
-#attributes() #does it have any metadata?
-#--------------#
-#EXERCISE: Try to tick off the top four data types by making a variable and checking what it is #### 
+#### EXERCISE: What is wrong with this code? 
+
+#### my_quiz<-c("uno","dos","tres","cuatro","cinco")
+#### print(my_quis) 
+
+Quiz is incorrectly spelled "quis", so no object to print 
+
+#### str(my_quiz)
+
+#### len(my_quiz) 
+
+Could not find the function 'len', either incorrectly spelled function (may have meant to type 'length') or need to download/install a certain package to use this function 
+
+### Section 1.3.11: Data Types 
+
+Every object in R has a type, and there are six basic types; character, numeric, integer, logical, complex, and raw. The most common (character, numeric, integer, and logical) are the ones most important to remember. R has built in functions to help examine objects to better understand their type 
+
+class() = what kind of object is it (high-level)?
+
+typeof() = what is the objects data type? 
+
+length() = how long is it? 
+
+attributes() = does it have any metadata?
+
+#### EXERCISE: Try to tick off the top four data types by making a variable and checking what it is 
+
+
+```{r,results='hide'}
 my_numeric_variable<-4.2 
 class(my_numeric_variable) #"numeric" 
 my_character_variable<-"black"
@@ -139,72 +144,63 @@ my_interger_variable<-11L ## don't really understand this one
 class(my_interger_variable) #integer 
 my_logical_variable<-TRUE
 class(my_logical_variable) #logical 
-#--------------#
 ```
 
-```{r}
-#Section 1.3.12: Data Structures 
-#--------------#
-#Elements of the data types above can be combined to form a data structure. Think of it like this - an element is what you would put in a single cell in an excel document, and the whole spreadsheet is the data structure 
-#R has many data structures including atomic vector, list, matrix, data frame, and factors 
-#--------------#
-#Vectors are the most common, and it is generally considered the workhorse of R. A vector is a collection of elements that are most commonly of the type character, numeric, integer, logical 
-#EXAMPLES #### 
+### Section 1.3.12: Data Structures 
+Elements of the data types above can be combined to form a data structure. Think of it like this - an element is what you would put in a single cell in an excel document, and the whole spreadsheet is the data structure. R has many data structures including atomic vector, list, matrix, data frame, and factors. Vectors are the most common, and it is generally considered the workhorse of R. A vector is a collection of elements that are most commonly of the type character, numeric, integer, logical 
+
+#### EXAMPLES 
+```{r,results='hide'}
 y<-c(1,2,3) #vector with three numeric elements 
 z<-c("Sarah","Tracy","John") #vector with three character elements 
-## NOTE: all elements within a vector need to be of the same data type ##
-#EXERCISE: What happens with you integrate the type of your character vector? #### 
+```
+
+##### NOTE: all elements within a vector need to be of the same data type
+
+#### EXERCISE: What happens with you integrate the type of your character vector? 
+```{r,results='hide'}
 y<-c(1,2,3,numeric) 
-z<-c("Sarah","Tracy","John",character)
-#creates the same vectors, with the data type specified 
-#--------------#
-#R also can process lists, and values inside a list can be several different types 
+z<-c("Sarah","Tracy","John",character) #creates the same vectors, with the data type specified 
+```
+
+R also can process lists, and values inside a list can be several different types 
+```{r,results='hide'}
 x<-list(1,"a",TRUE)
 x #will print the list 
 #You can retrieve individual elements using double square brackets to reference their index 
 x[[2]] #retrieves the second value from the list described above, output shows 'a'
-#--------------#
 ```
 
-```{r}
-#Section 1.3.12: Data Frames and Tibbles 
-#--------------#
-#R can also handle two-dimensional or 'rectangular' data files, most commonly known as 'data frames'. There are likely the most useful structure for data analysis, with data stored in rows and columns (each columns holds elements of the same type). 
-#You can import a data frame from an external file such as .csv or .xlsx file, or you can make a data frame in R by building one (using function 'data-frame'). It lets you make them by adding together some different vectors (lists in this case) and giving each one a column name 
-#--------------#
-#EXAMPLE: 
+### #Section 1.3.12: Data Frames and Tibbles 
+
+R can also handle two-dimensional or 'rectangular' data files, most commonly known as 'data frames'. There are likely the most useful structure for data analysis, with data stored in rows and columns (each columns holds elements of the same type). You can import a data frame from an external file such as .csv or .xlsx file, or you can make a data frame in R by building one (using function 'data-frame'). It lets you make them by adding together some different vectors (lists in this case) and giving each one a column name. 
+
+#### EXAMPLE 
+
+```{r,results='hide'}
 my_dataframe<-data.frame(no=c(1,2,3),c("Tracey","John","Pete"),c(TRUE,FALSE,TRUE))
 my_dataframe #prints the dataframe
 str(my_dataframe) #summary of dataframe with data types, number of variables (based on R's guess - it can be wrong so check!) etc.
 #If R has got the data type incorrect, you can change its type using the code below 
 my_dataframe$no<-as.factor(my_dataframe$no) #turning data types into factors in column 'no'
 str(my_dataframe$no) #shows new data types, with column 'no' being a factor with 3 levels, 1, 2, 3. Factor is a categorical type, so we are telling R that column 1 is storing a category (e.g., a numeric code like a student ID) rather than a continuous number 
-#--------------#
-#Important Notes #### 
-# It is important that each vector is the same length (number of rows) because R won't allow you to have different columns with different lengths 
-#If you have no data to go into a cell, you can use NA. Can use obvious numbers (e.g., 9999) but its better to use NA as there are functions that R can use to determine it (e.g., na.omit or is.na)
-#Try and avoid manually creating dataframes, instead read it in from other files (manually creating greatly increases the risk of transcription errors)
-#--------------#
 ```
 
-```{r}
-#Section 1.3.14: Packages and Libraries 
-#--------------#
-#Packages are a collection of functions that are made for specific purposes and can be downloaded and used by you. They are generally made by researchers, professors, statisticians, and programmers. 
-#To use R packages, you must first download them 
-# install.packages("tidyverse") #download and install 
-# library(tidyverse) #load into your current workspace 
-## NOTE: once you have installed a package, you won't need to on the same computer again. Best practice is to comment it out (place comment after install.packages command) so that the next time you run it you don't have to install packages again or update them. You can also install multiple packages at once (see example code below)
-  # install.packages("ggplot","tidyr","dplyr")
-#--------------#
-```
 
-```{r}
-#Section 1.3.15: Coding Best Practices 
-#--------------#
-#Create a section at the top of your script with all the packages needed for your code so you remember which packages you need to load at the start of each coding session 
-#Break your code up into logical, bite-sized sections by using subheadings, new code chunks (if in Markdown) etc. 
-#Follow a template - once you have a consistent style for your scripts, write all of your future code using the same style 
-#--------------#
-```
+#### Important Notes 
+
+It is important that each vector is the same length (number of rows) because R won't allow you to have different columns with different lengths. If you have no data to go into a cell, you can use NA. Can use obvious numbers (e.g., 9999) but its better to use NA as there are functions that R can use to determine it (e.g., na.omit or is.na). Try and avoid manually creating dataframes, instead read it in from other files (manually creating greatly increases the risk of transcription errors)
+
+### Section 1.3.14: Packages and Libraries 
+
+Packages are a collection of functions that are made for specific purposes and can be downloaded and used by you. They are generally made by researchers, professors, statisticians, and programmers. To use R packages, you must first download them using install.packages("package_name") and then library(package_name) to load them into your current workspace 
+
+NOTE: once you have installed a package, you won't need to on the same computer again. Best practice is to comment it out (place comment after install.packages command) so that the next time you run it you don't have to install packages again or update them. You can also install multiple packages at once (E.g., install.packages("ggplot","tidyr","dplyr"))
+
+### Section 1.3.15: Coding Best Practices 
+
+Create a section at the top of your script with all the packages needed for your code so you remember which packages you need to load at the start of each coding session. Break your code up into logical, bite-sized sections by using subheadings, new code chunks (if in Markdown) etc. Follow a template - once you have a consistent style for your scripts, write all of your future code using the same style 
+
+## ALL FORMATTING CORRECT WHEN KNITTED :)  
+
 
