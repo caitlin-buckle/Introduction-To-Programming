@@ -1,5 +1,5 @@
 ---
-title: "MB5370 Module 1 Workshop Three"
+title: "MB5370 Module 1 Workshop Three: Reproducible Research in Marine Science"
 author: "Caitlin Buckle"
 date: "2026-05-26"
 output: html_document
@@ -102,3 +102,5 @@ After committing changes on GitHub (to add README file), select Pull on R Projec
 
 
 #### NOTE: You will only see files/folders in your Git pane if it is uncommitted. If there is nothing there, everything has already been committed! 
+
+## All correctly formatted for knitting :) 

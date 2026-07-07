@@ -1,5 +1,5 @@
 ---
-title: "MB5370 Module 1 Workshop 4"
+title: "MB5370 Module 1 Workshop 4: Intergrating AI"
 author: "Caitlin Buckle"
 date: "2026-05-27"
 output: html_document
@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Signed up for Github Education and activated co-pilot inside RStudio 
 
-### Section 4.3 GitHub Copilot 
+### Section 4.3: GitHub Copilot 
 Practicing prompting copilot to produce code. Use # to make comments, and wait until the code is suggested. Then, press tab to confirm the code
 ```{r message=FALSE, warning=FALSE}
 #Load tidyverse and palmerpenguins libraries
@@ -59,7 +59,7 @@ ggplot(data = penguins, aes(x = species, y = flipper_length_mm, color = species)
 
 ### Section 4.4: Installing chattr
 chattr is fully integrated within RStudio, so can read metadata from your active environment to support contextual support
-```{r}
+```{r warning=FALSE}
 library(ellmer)
 library(chattr)
 ```
@@ -287,3 +287,4 @@ convert_temp_c_to_f(temp_c=33) #91.4 degrees Farenheit - CORRECT!!
 
 ```
 
+All formatting correct for knitting :) 
