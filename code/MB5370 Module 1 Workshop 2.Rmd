@@ -255,6 +255,5 @@ ggplot(data=mpg)+
 Updated template for ggplot below: 
 ggplot(data=DATA) + GEOM_FUNCTION(mapping = aes(MAPPINGS),stat = STAT, position = POSITION) +FACET_FUNCTION
 
-## ALL FORMATTING CORRECT WHEN KNITTED :) 
-        
+
 

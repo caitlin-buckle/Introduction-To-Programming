@@ -201,6 +201,4 @@ NOTE: once you have installed a package, you won't need to on the same computer 
 
 Create a section at the top of your script with all the packages needed for your code so you remember which packages you need to load at the start of each coding session. Break your code up into logical, bite-sized sections by using subheadings, new code chunks (if in Markdown) etc. Follow a template - once you have a consistent style for your scripts, write all of your future code using the same style 
 
-## ALL FORMATTING CORRECT WHEN KNITTED :)  
-
 
